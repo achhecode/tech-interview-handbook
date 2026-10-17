@@ -1,7 +1,7 @@
 ---
 title: Memory Management and Garbage Collection
 parent: Core Java
-nav_order: 7
+nav_order: 8
 ---
 
 # Memory Management and Garbage Collection

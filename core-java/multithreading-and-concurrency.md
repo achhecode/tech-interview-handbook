@@ -1,7 +1,7 @@
 ---
 title: Multithreading and Concurrency
 parent: Core Java
-nav_order: 5
+nav_order: 6
 ---
 
 # Multithreading and Concurrency

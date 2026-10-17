@@ -1,7 +1,7 @@
 ---
 title: Lambdas and Streams
 parent: Core Java
-nav_order: 6
+nav_order: 7
 ---
 
 # Lambdas and Streams

@@ -1,7 +1,7 @@
 ---
 title: Language Fundamentals
 parent: Core Java
-nav_order: 2
+nav_order: 3
 ---
 
 # Language Fundamentals
