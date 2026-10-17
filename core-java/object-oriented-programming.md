@@ -1224,4 +1224,89 @@ Quick Revision
 
 ---
 
+## Can We Override a Static Method in Java? Why Not?
+
+**No, we cannot override a static method in Java.** If a subclass defines a static method with the same signature as a static method in its parent class, it is called **method hiding**, not method overriding.
+
+Why Can't We Override a Static Method?
+
+The main reason is that **static methods belong to the class, whereas overridden instance methods are resolved based on the actual object at runtime.**
+
+- **Static methods:** Resolved using the reference type or class name; they are not dynamically dispatched.
+- **Instance methods:** Overridden methods support runtime polymorphism, so the actual object's implementation is invoked.
+
+Example: Static Method Hiding
+
+```java
+class Parent {
+
+    static void display() {
+        System.out.println("Parent static method");
+    }
+}
+
+class Child extends Parent {
+
+    static void display() {
+        System.out.println("Child static method");
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+        Parent parent = new Child();
+
+        parent.display();
+        Child.display();
+        Parent.display();
+    }
+}
+```
+
+Output
+
+```text
+Parent static method
+Child static method
+Parent static method
+```
+
+Explanation
+
+- `Parent parent = new Child();` creates a `Child` object but stores its reference in a `Parent` variable.
+- `parent.display()` calls `Parent.display()` because static method selection depends on the reference type, not the runtime object.
+- `Child.display()` calls the static method declared in `Child`.
+- `Parent.display()` calls the static method declared in `Parent`.
+
+Notice that the static method in `Child` does not override the method in `Parent`; it **hides** it.
+
+Method Overriding vs. Method Hiding
+
+| Feature | Method Overriding | Method Hiding |
+|---|---|---|
+| Applies to | Instance methods | Static methods |
+| Binding | Runtime (dynamic dispatch) | Compile time (based on reference type) |
+| Polymorphism | Supports runtime polymorphism | Does not support runtime polymorphism |
+| `@Override` annotation | Valid | Invalid for a static method |
+| Resolution | Actual object type | Reference type or class name |
+
+Interview Follow-up: What Happens If We Use `@Override`?
+
+Java produces a compilation error if we annotate a static method in a subclass with `@Override`, because static methods cannot override instance methods or other static methods.
+
+```java
+class Parent {
+    static void display() {}
+}
+
+class Child extends Parent {
+
+    @Override
+    static void display() {} // Compilation error
+}
+```
+
+**Interview takeaway:** Static methods are associated with classes, not individual objects. Therefore, they cannot be overridden; a static method with the same signature in a subclass hides the parent's static method.
+
 
