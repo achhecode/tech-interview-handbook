@@ -1,35 +1,46 @@
 ---
 title: Home
 layout: home
+nav_order: 0
+permalink: /
+description: Java and Spring Boot interview questions with answers, code and follow-ups
 ---
 
-This is a *bare-minimum* template to create a Jekyll site that uses the [Just the Docs] theme. You can easily set the created site to be published on [GitHub Pages] – the [README] file explains how to do that, along with other details.
+# Tech Interview Handbook
+{: .fs-9 }
 
-If [Jekyll] is installed on your computer, you can also build and preview the created site *locally*. This lets you test changes before committing them, and avoids waiting for GitHub Pages.[^1] And you will be able to deploy your local build to a different platform than GitHub Pages.
+Java · Spring Boot · Microservices · System Design · Coding. Questions, answers, code and follow-ups for backend interviews.
+{: .fs-6 .fw-300 }
 
-More specifically, the created site:
+[Start with Preparation]({% link introduction/index.md %}){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[Jump to Core Java]({% link core-java/index.md %}){: .btn .fs-5 .mb-4 .mb-md-0 }
 
-- uses a gem-based approach, i.e. uses a `Gemfile` and loads the `just-the-docs` gem
-- uses the [GitHub Pages / Actions workflow] to build and publish the site on GitHub Pages
+---
 
-Other than that, you're free to customize sites that you create with this template, however you like. You can easily change the versions of `just-the-docs` and Jekyll it uses, as well as adding further plugins.
+## How this handbook is organised
 
-[Browse our documentation][Just the Docs] to learn more about how to use this theme.
+Topics follow the order of a real interview: introduce yourself, then language, frameworks, data, architecture, design, tools, coding and finally scenarios.
 
-To get started with creating a site, simply:
+| # | Section | What you will find |
+|:--|:--------|:-------------------|
+| 1 | [Introduction and Preparation]({% link introduction/index.md %}) | Preparation plan, self-introduction, skills, education, project walkthrough, HR |
+| 2 | [Core Java]({% link core-java/index.md %}) | OOP, fundamentals, collections, exceptions, concurrency, streams, JVM |
+| 3 | [Modern Java (8 to 25)]({% link modern-java/index.md %}) | Features by version and LTS releases |
+| 4 | [Spring Framework]({% link spring-framework/index.md %}) | IoC, DI, beans, AOP, MVC, transactions, security |
+| 5 | [Spring Boot]({% link spring-boot/index.md %}) | Entry point, auto-configuration, annotations, testing, Actuator |
+| 6 | [SQL, JPA and Hibernate]({% link database/index.md %}) | Queries, joins, indexes, ACID, Hibernate, NoSQL |
+| 7 | [Microservices]({% link microservices/index.md %}) | Patterns, communication, Kafka, resilience, observability |
+| 8 | [Design Patterns and LLD]({% link design-patterns/index.md %}) | SOLID, Singleton, Builder, Factory, Adapter, Proxy, Decorator |
+| 9 | [System Design]({% link system-design/index.md %}) | Fundamentals, caching, URL shortener, rate limiter |
+| 10 | [DevOps and Cloud]({% link devops-and-cloud/index.md %}) | Git, Docker, Kubernetes, CI/CD, AWS |
+| 11 | [Coding Problems]({% link coding/index.md %}) | Stream API, strings, DSA, concurrency programs |
+| 12 | [Scenario-Based Questions]({% link scenario-based/index.md %}) | Production issues, API design, architecture decisions |
 
-1. click "[use this template]" to create a GitHub repository
-2. go to Settings > Pages > Build and deployment > Source, and select GitHub Actions
+## How to read a question page
 
-If you want to maintain your docs in the `docs` directory of an existing project repo, see [Hosting your docs from an existing project repo](https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md#hosting-your-docs-from-an-existing-project-repo) in the template README.
+- Difficulty labels: Easy, Medium, Hard.
+- **Answer** gives the explanation, **Key points** gives the revision summary, **Follow-up questions** gives what an interviewer may ask next.
+- Use the search box (top of the sidebar) to find any question quickly.
 
-----
-
-[^1]: [It can take up to 10 minutes for changes to your site to publish after you push the changes to GitHub](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll#creating-your-site).
-
-[Just the Docs]: https://just-the-docs.github.io/just-the-docs/
-[GitHub Pages]: https://docs.github.com/en/pages
-[README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
-[Jekyll]: https://jekyllrb.com
-[GitHub Pages / Actions workflow]: https://github.blog/changelog/2022-07-27-github-pages-custom-github-actions-workflows-beta/
-[use this template]: https://github.com/just-the-docs/just-the-docs-template/generate
+{: .tip }
+Want to add your own questions? See [How to Add Q&A]({% link how-to-add.md %}).
