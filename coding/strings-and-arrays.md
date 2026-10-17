@@ -1,7 +1,7 @@
 ---
 title: Strings and Arrays
 parent: Coding Problems
-nav_order: 2
+nav_order: 3
 ---
 
 # Strings and Arrays

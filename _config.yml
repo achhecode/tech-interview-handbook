@@ -49,7 +49,7 @@ callouts:
     title: Important
     color: yellow
 
-footer_content: "&copy; 2026 A R Danish. Distributed under the MIT license."
+footer_content: "&copy; 2026 Achhe Code. Distributed under the MIT license."
 
 gh_edit_link: true
 gh_edit_link_text: "Edit this page on GitHub"

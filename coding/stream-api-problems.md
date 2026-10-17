@@ -1,7 +1,7 @@
 ---
 title: Stream API Problems
 parent: Coding Problems
-nav_order: 1
+nav_order: 2
 ---
 
 # Stream API Problems

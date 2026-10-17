@@ -1,7 +1,7 @@
 ---
 title: Data Structures and Algorithms
 parent: Coding Problems
-nav_order: 3
+nav_order: 4
 ---
 
 # Data Structures and Algorithms
