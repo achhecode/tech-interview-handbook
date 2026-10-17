@@ -2712,4 +2712,3 @@ A `HashMap<Integer, Integer>` can track the frequency of each number. Return the
 3. How would you find the element that repeats most frequently?
 4. What is the difference between `HashSet` and `HashMap`?
 
----
