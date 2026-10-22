@@ -19,6 +19,33 @@ Collections and employee-list problems using streams.
 
 ---
 
+## Find the frequency of each character in a string using the Stream API.
+
+Easy
+{: .label .label-green }
+
+**Answer**
+
+```java
+String str = "programming";
+
+Map<Character, Long> freq = str.chars()
+        .mapToObj(c -> (char) c)
+        .collect(Collectors.groupingBy(Function.identity(),
+                 LinkedHashMap::new, Collectors.counting()));
+// {p=1, r=2, o=1, g=2, a=1, m=2, i=1, n=1}
+
+// only repeated characters
+freq.entrySet().stream()
+    .filter(e -> e.getValue() > 1)
+    .forEach(e -> System.out.println(e.getKey() + " -> " + e.getValue()));
+```
+
+{: .note }
+`LinkedHashMap::new` preserves the order of first appearance. Without it, `groupingBy` returns a `HashMap` with no guaranteed order. For strings with emoji or other supplementary characters, use `codePoints()` instead of `chars()`.
+
+---
+
 ## Find duplicates in an array using the Stream API.
 
 Easy
@@ -79,6 +106,251 @@ Map<String, Optional<Employee>> top = list.stream()
 
 Optional<Double> second = list.stream().map(Employee::salary)
         .distinct().sorted(Comparator.reverseOrder()).skip(1).findFirst();
+```
+
+---
+
+## Find the first non-repeating character in a string.
+
+Easy
+{: .label .label-green }
+
+**Answer**
+
+```java
+String str = "swiss";
+
+Optional<Character> first = str.chars().mapToObj(c -> (char) c)
+        .collect(Collectors.groupingBy(Function.identity(),
+                 LinkedHashMap::new, Collectors.counting()))
+        .entrySet().stream()
+        .filter(e -> e.getValue() == 1)
+        .map(Map.Entry::getKey)
+        .findFirst();                    // Optional[w]
+```
+
+---
+
+## Separate even and odd numbers from a list.
+
+Easy
+{: .label .label-green }
+
+**Answer**
+
+```java
+List<Integer> nums = List.of(1, 2, 3, 4, 5, 6, 7, 8);
+
+Map<Boolean, List<Integer>> parts = nums.stream()
+        .collect(Collectors.partitioningBy(n -> n % 2 == 0));
+
+parts.get(true);   // [2, 4, 6, 8]
+parts.get(false);  // [1, 3, 5, 7]
+```
+
+---
+
+## Find the first three highest-paid employees.
+
+Easy
+{: .label .label-green }
+
+**Answer**
+
+```java
+List<Employee> top3 = list.stream()
+        .sorted(Comparator.comparingDouble(Employee::salary).reversed())
+        .limit(3)
+        .toList();
+```
+
+---
+
+## Count employees and find the average salary in each department.
+
+Easy
+{: .label .label-green }
+
+**Answer**
+
+```java
+Map<String, Long> countByDept = list.stream()
+        .collect(Collectors.groupingBy(Employee::dept, Collectors.counting()));
+
+Map<String, Double> avgByDept = list.stream()
+        .collect(Collectors.groupingBy(Employee::dept,
+                 Collectors.averagingDouble(Employee::salary)));
+```
+
+---
+
+## Flatten a list of lists into a single list.
+
+Easy
+{: .label .label-green }
+
+**Answer**
+
+```java
+List<List<Integer>> nested = List.of(List.of(1, 2), List.of(3, 4), List.of(5));
+
+List<Integer> flat = nested.stream()
+        .flatMap(List::stream)
+        .toList();                       // [1, 2, 3, 4, 5]
+```
+
+---
+
+## Check whether a string is a palindrome using streams.
+
+Easy
+{: .label .label-green }
+
+**Answer**
+
+```java
+static boolean isPalindrome(String s) {
+    String clean = s.replaceAll("[^A-Za-z0-9]", "").toLowerCase();
+    return IntStream.range(0, clean.length() / 2)
+            .allMatch(i -> clean.charAt(i) == clean.charAt(clean.length() - 1 - i));
+}
+
+isPalindrome("A man, a plan, a canal: Panama");   // true
+```
+
+---
+
+## Reverse each word in a sentence.
+
+Easy
+{: .label .label-green }
+
+**Answer**
+
+```java
+String s = "Java streams are fun";
+
+String result = Arrays.stream(s.split(" "))
+        .map(w -> new StringBuilder(w).reverse().toString())
+        .collect(Collectors.joining(" "));
+// avaJ smaerts era nuf
+```
+
+---
+
+## Find the missing number in an array containing 1 to n.
+
+Easy
+{: .label .label-green }
+
+**Answer**
+
+```java
+int[] arr = {1, 2, 4, 5, 6};
+int n = 6;
+
+int missing = IntStream.rangeClosed(1, n).sum() - Arrays.stream(arr).sum();  // 3
+```
+
+---
+
+## Find the Nth highest salary.
+
+Medium
+{: .label .label-yellow }
+
+**Answer**
+
+```java
+int n = 3;
+
+Optional<Double> nth = list.stream()
+        .map(Employee::salary)
+        .distinct()
+        .sorted(Comparator.reverseOrder())
+        .skip(n - 1)
+        .findFirst();
+
+// the employees earning that salary
+nth.ifPresent(sal -> list.stream()
+        .filter(e -> e.salary() == sal)
+        .forEach(System.out::println));
+```
+
+---
+
+## Get salary statistics (min, max, average, sum, count) in one pass.
+
+Medium
+{: .label .label-yellow }
+
+**Answer**
+
+```java
+DoubleSummaryStatistics stats = list.stream()
+        .mapToDouble(Employee::salary)
+        .summaryStatistics();
+
+stats.getMin();  stats.getMax();  stats.getAverage();
+stats.getSum();  stats.getCount();
+```
+
+---
+
+## Find the total salary of each department and the department with the highest total.
+
+Medium
+{: .label .label-yellow }
+
+**Answer**
+
+```java
+Map<String, Double> totalByDept = list.stream()
+        .collect(Collectors.groupingBy(Employee::dept,
+                 Collectors.summingDouble(Employee::salary)));
+
+Optional<Map.Entry<String, Double>> highest = totalByDept.entrySet().stream()
+        .max(Map.Entry.comparingByValue());
+```
+
+---
+
+## Convert a list of employees into a map of name to salary, handling duplicate keys.
+
+Medium
+{: .label .label-yellow }
+
+**Answer**
+
+```java
+Map<String, Double> map = list.stream()
+        .collect(Collectors.toMap(Employee::name, Employee::salary,
+                 Double::sum,            // merge function for duplicate keys
+                 LinkedHashMap::new));
+```
+
+{: .note }
+Without the merge function, `toMap` throws `IllegalStateException` on duplicate keys.
+
+---
+
+## Check whether two strings are anagrams using streams.
+
+Medium
+{: .label .label-yellow }
+
+**Answer**
+
+```java
+static boolean isAnagram(String a, String b) {
+    Function<String, String> normalize = s -> s.replaceAll("\\s", "").toLowerCase()
+            .chars().sorted()
+            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+            .toString();
+    return normalize.apply(a).equals(normalize.apply(b));
+}
+
+isAnagram("Listen", "Silent");   // true
 ```
 
 ---
